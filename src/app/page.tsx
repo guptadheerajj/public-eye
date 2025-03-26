@@ -9,6 +9,7 @@ import { TopicFilter } from "@/components/topic-filter"
 import { SourceFilter } from "@/components/source-filter"
 import { DateRangePicker } from "@/components/date-range-picker"
 import { SentimentStats } from "@/components/sentiment-stats"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function DashboardPage() {
   const [selectedTopic, setSelectedTopic] = useState("all")
@@ -20,6 +21,7 @@ export default function DashboardPage() {
           <h2 className="text-3xl font-bold tracking-tight">Public Sentiment Dashboard</h2>
           <div className="flex items-center space-x-2">
             <DateRangePicker />
+            <ThemeToggle />
           </div>
         </div>
 

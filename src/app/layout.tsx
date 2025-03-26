@@ -16,9 +16,10 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body>
 				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
+					attribute="data-theme"
+					defaultTheme="light"
+					enableSystem={false}
+					themes={["light", "dark", "cyberpunk", "pink", "purple"]}
 					disableTransitionOnChange
 				>
 					{children}
