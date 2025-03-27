@@ -128,12 +128,12 @@ export function SentimentTrends({ brand }: SentimentTrendsProps) {
   }, [brand])
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <CardTitle>Sentiment Trends</CardTitle>
       </CardHeader>
       <CardContent>
-        <div ref={chartRef} className="h-[300px]" />
+        <div ref={chartRef} className="h-[350px]" />
       </CardContent>
     </Card>
   )
