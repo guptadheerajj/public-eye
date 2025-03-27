@@ -5,6 +5,7 @@ import { brands } from "@/data/brands"
 import { Overview } from "@/components/overview"
 import { RecentPosts } from "@/components/recent-posts"
 import { SentimentStats } from "@/components/sentiment-stats"
+import { SentimentTrends } from "@/components/sentiment-trends"
 import { Input } from "@/components/ui/input"
 import {
   DropdownMenu,
@@ -64,7 +65,10 @@ export default function Home() {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Sentiment Trends</h2>
-          <Overview brand={selectedBrand} />
+          <div className="grid gap-4">
+            <SentimentTrends brand={selectedBrand} />
+            <Overview brand={selectedBrand} />
+          </div>
         </section>
 
         <section>
