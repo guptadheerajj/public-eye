@@ -1,125 +1,66 @@
 "use client"
 
 import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { brands } from "@/data/brands"
 import { Overview } from "@/components/overview"
 import { RecentPosts } from "@/components/recent-posts"
-import { TopicFilter } from "@/components/topic-filter"
-import { SourceFilter } from "@/components/source-filter"
-import { DateRangePicker } from "@/components/date-range-picker"
 import { SentimentStats } from "@/components/sentiment-stats"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Input } from "@/components/ui/input"
 
-export default function DashboardPage() {
-  const [selectedTopic, setSelectedTopic] = useState("all")
+export default function Home() {
+  const [selectedBrand, setSelectedBrand] = useState(brands[0])
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const filteredBrands = brands.filter(brand =>
+    brand.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Public Sentiment Dashboard</h2>
-          <div className="flex items-center space-x-2">
-            <DateRangePicker />
-            <ThemeToggle />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium">
-            {selectedTopic === "all"
-              ? "Select a topic to view specific sentiment data"
-              : `Sentiment Analysis for: ${selectedTopic}`}
-          </h3>
-          <TopicFilter value={selectedTopic} onChange={setSelectedTopic} />
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <SentimentStats topic={selectedTopic} />
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-          <Card className="col-span-4">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Sentiment Trends</CardTitle>
-                  <CardDescription>
-                    {selectedTopic === "all"
-                      ? "Select a topic to view sentiment trends"
-                      : `Sentiment trends for ${selectedTopic} over time`}
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pl-2">
-              <Overview topic={selectedTopic} />
-            </CardContent>
-          </Card>
-          <Card className="col-span-3">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Source Breakdown</CardTitle>
-                  <CardDescription>
-                    {selectedTopic === "all"
-                      ? "Select a topic to view source breakdown"
-                      : `Sentiment distribution by platform for ${selectedTopic}`}
-                  </CardDescription>
-                </div>
-                <div>
-                  <SourceFilter />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[300px]">
-                <div className="h-full w-full" id="source-chart"></div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-1">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Posts</CardTitle>
-              <CardDescription>
-                {selectedTopic === "all"
-                  ? "Select a topic to view related posts"
-                  : `Latest social media posts about ${selectedTopic}`}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="all">
-                <TabsList>
-                  <TabsTrigger value="all">All Platforms</TabsTrigger>
-                  <TabsTrigger value="twitter">Twitter</TabsTrigger>
-                  <TabsTrigger value="reddit">Reddit</TabsTrigger>
-                  <TabsTrigger value="quora">Quora</TabsTrigger>
-                  <TabsTrigger value="youtube">YouTube</TabsTrigger>
-                </TabsList>
-                <TabsContent value="all" className="space-y-4">
-                  <RecentPosts platform="all" topic={selectedTopic} />
-                </TabsContent>
-                <TabsContent value="twitter" className="space-y-4">
-                  <RecentPosts platform="twitter" topic={selectedTopic} />
-                </TabsContent>
-                <TabsContent value="reddit" className="space-y-4">
-                  <RecentPosts platform="reddit" topic={selectedTopic} />
-                </TabsContent>
-                <TabsContent value="quora" className="space-y-4">
-                  <RecentPosts platform="quora" topic={selectedTopic} />
-                </TabsContent>
-                <TabsContent value="youtube" className="space-y-4">
-                  <RecentPosts platform="youtube" topic={selectedTopic} />
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
+    <main className="container mx-auto p-4 space-y-8">
+      <div className="flex flex-col space-y-4">
+        <h1 className="text-3xl font-bold">Brand Sentiment Analysis</h1>
+        <Input
+          type="search"
+          placeholder="Search brands..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="max-w-sm"
+        />
+        <div className="flex flex-wrap gap-2">
+          {filteredBrands.map((brand) => (
+            <button
+              key={brand.id}
+              onClick={() => setSelectedBrand(brand)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors
+                ${
+                  selectedBrand.id === brand.id
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary hover:bg-secondary/80"
+                }`}
+            >
+              {brand.name}
+            </button>
+          ))}
         </div>
       </div>
-    </div>
+
+      <div className="grid gap-8">
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Sentiment Overview</h2>
+          <SentimentStats brand={selectedBrand} />
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Sentiment Trends</h2>
+          <Overview brand={selectedBrand} />
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Recent Reviews</h2>
+          <RecentPosts brand={selectedBrand} />
+        </section>
+      </div>
+    </main>
   )
 }
 

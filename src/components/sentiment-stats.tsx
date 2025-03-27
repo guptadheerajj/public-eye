@@ -1,283 +1,66 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowUpIcon, ArrowDownIcon, MinusIcon, BarChart3 } from "lucide-react"
-
-// Mock data by topic - replace with your actual data fetching logic
-const topicStats = {
-  all: [
-    {
-      title: "Total Posts",
-      value: "2,853",
-      change: "+12.5%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "42%",
-      change: "+8.2%",
-      trend: "up",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "35%",
-      change: "-2.1%",
-      trend: "down",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "23%",
-      change: "-6.1%",
-      trend: "down",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-  Infrastructure: [
-    {
-      title: "Total Posts",
-      value: "487",
-      change: "+5.2%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "28%",
-      change: "-3.5%",
-      trend: "down",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "42%",
-      change: "+1.8%",
-      trend: "up",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "30%",
-      change: "+1.7%",
-      trend: "up",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-  Traffic: [
-    {
-      title: "Total Posts",
-      value: "623",
-      change: "+18.3%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "15%",
-      change: "-7.2%",
-      trend: "down",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "25%",
-      change: "-5.1%",
-      trend: "down",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "60%",
-      change: "+12.3%",
-      trend: "up",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-  "Power Infrastructure": [
-    {
-      title: "Total Posts",
-      value: "342",
-      change: "+42.1%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "12%",
-      change: "-8.5%",
-      trend: "down",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "28%",
-      change: "-3.2%",
-      trend: "down",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "60%",
-      change: "+11.7%",
-      trend: "up",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-  "Water Infrastructure": [
-    {
-      title: "Total Posts",
-      value: "215",
-      change: "+3.7%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "35%",
-      change: "+2.1%",
-      trend: "up",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "45%",
-      change: "+5.3%",
-      trend: "up",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "20%",
-      change: "-7.4%",
-      trend: "down",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-  "Urban Planning": [
-    {
-      title: "Total Posts",
-      value: "378",
-      change: "+15.2%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "68%",
-      change: "+12.3%",
-      trend: "up",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "22%",
-      change: "-8.1%",
-      trend: "down",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "10%",
-      change: "-4.2%",
-      trend: "down",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-  "Community Facilities": [
-    {
-      title: "Total Posts",
-      value: "192",
-      change: "+8.4%",
-      trend: "up",
-      icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-    },
-    {
-      title: "Positive Sentiment",
-      value: "45%",
-      change: "+2.8%",
-      trend: "up",
-      icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-    },
-    {
-      title: "Neutral Sentiment",
-      value: "40%",
-      change: "+1.5%",
-      trend: "up",
-      icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-    },
-    {
-      title: "Negative Sentiment",
-      value: "15%",
-      change: "-4.3%",
-      trend: "down",
-      icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-    },
-  ],
-}
-
-// Default stats for topics without specific data
-const defaultStats = [
-  {
-    title: "Total Posts",
-    value: "0",
-    change: "0%",
-    trend: "neutral",
-    icon: <BarChart3 className="h-4 w-4 text-muted-foreground" />,
-  },
-  {
-    title: "Positive Sentiment",
-    value: "0%",
-    change: "0%",
-    trend: "neutral",
-    icon: <ArrowUpIcon className="h-4 w-4 text-green-500" />,
-  },
-  {
-    title: "Neutral Sentiment",
-    value: "0%",
-    change: "0%",
-    trend: "neutral",
-    icon: <MinusIcon className="h-4 w-4 text-gray-500" />,
-  },
-  {
-    title: "Negative Sentiment",
-    value: "0%",
-    change: "0%",
-    trend: "neutral",
-    icon: <ArrowDownIcon className="h-4 w-4 text-red-500" />,
-  },
-]
+import { Brand } from "@/data/brands"
+import { ThumbsDown, ThumbsUp, Minus } from "lucide-react"
 
 interface SentimentStatsProps {
-  topic: string
+  brand: Brand
 }
 
-export function SentimentStats({ topic }: SentimentStatsProps) {
-  // Get stats for the selected topic or use default stats if not found
-  const stats = topicStats[topic as keyof typeof topicStats] || defaultStats
+export function SentimentStats({ brand }: SentimentStatsProps) {
+  const total = brand.sentiment.positive + brand.sentiment.negative + brand.sentiment.neutral
+  const positivePercentage = Math.round((brand.sentiment.positive / total) * 100)
+  const negativePercentage = Math.round((brand.sentiment.negative / total) * 100)
+  const neutralPercentage = Math.round((brand.sentiment.neutral / total) * 100)
 
   return (
-    <>
-      {stats.map((stat, index) => (
-        <Card key={index}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-            {stat.icon}
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stat.value}</div>
-            <p
-              className={`text-xs ${
-                stat.trend === "up" ? "text-green-500" : stat.trend === "down" ? "text-red-500" : "text-gray-500"
-              } flex items-center`}
-            >
-              {stat.change}
-            </p>
-          </CardContent>
-        </Card>
-      ))}
-    </>
+    <div className="grid gap-4 md:grid-cols-3">
+      <div className="rounded-lg border p-4 [data-theme='dark']:border-gray-800">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <ThumbsUp className="h-5 w-5 text-green-500" />
+            <h3 className="text-sm font-medium">Positive</h3>
+          </div>
+          <p className="text-xl font-bold">{positivePercentage}%</p>
+        </div>
+        <div className="mt-4 h-2 w-full rounded-full bg-gray-100 [data-theme='dark']:bg-gray-800">
+          <div
+            className="h-full rounded-full bg-green-500"
+            style={{ width: `${positivePercentage}%` }}
+          />
+        </div>
+      </div>
+      <div className="rounded-lg border p-4 [data-theme='dark']:border-gray-800">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <ThumbsDown className="h-5 w-5 text-red-500" />
+            <h3 className="text-sm font-medium">Negative</h3>
+          </div>
+          <p className="text-xl font-bold">{negativePercentage}%</p>
+        </div>
+        <div className="mt-4 h-2 w-full rounded-full bg-gray-100 [data-theme='dark']:bg-gray-800">
+          <div
+            className="h-full rounded-full bg-red-500"
+            style={{ width: `${negativePercentage}%` }}
+          />
+        </div>
+      </div>
+      <div className="rounded-lg border p-4 [data-theme='dark']:border-gray-800">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Minus className="h-5 w-5 text-yellow-500" />
+            <h3 className="text-sm font-medium">Neutral</h3>
+          </div>
+          <p className="text-xl font-bold">{neutralPercentage}%</p>
+        </div>
+        <div className="mt-4 h-2 w-full rounded-full bg-gray-100 [data-theme='dark']:bg-gray-800">
+          <div
+            className="h-full rounded-full bg-yellow-500"
+            style={{ width: `${neutralPercentage}%` }}
+          />
+        </div>
+      </div>
+    </div>
   )
 }
 

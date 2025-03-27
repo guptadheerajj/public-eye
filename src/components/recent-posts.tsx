@@ -2,7 +2,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Twitter, MessageSquare, HelpCircle, Youtube } from "lucide-react"
+import { Twitter, MessageSquare, HelpCircle, Youtube, ThumbsUp, ThumbsDown } from "lucide-react"
+import { Brand } from "@/data/brands"
 
 // Mock data - replace with your actual data fetching logic
 const mockPosts = [
@@ -49,80 +50,15 @@ const mockPosts = [
     sentiment: "neutral",
     topic: "Water Infrastructure",
   },
-  {
-    id: 5,
-    platform: "twitter",
-    author: "ConcernedCitizen",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Power outage in the east district again! This is the third time this month. @PowerCompany needs to fix this ASAP! #frustrated",
-    timestamp: "3 hours ago",
-    sentiment: "negative",
-    topic: "Power Infrastructure",
-  },
-  {
-    id: 6,
-    platform: "reddit",
-    author: "infrastructure_fan",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "The new bridge construction is taking forever. It was supposed to be done months ago. Traffic is a nightmare because of it.",
-    timestamp: "1 day ago",
-    sentiment: "negative",
-    topic: "Infrastructure",
-  },
-  {
-    id: 7,
-    platform: "twitter",
-    author: "CityPlanner",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "The city council approved the new infrastructure plan! This will address many of our aging roads and bridges. #progress",
-    timestamp: "12 hours ago",
-    sentiment: "positive",
-    topic: "Infrastructure",
-  },
-  {
-    id: 8,
-    platform: "quora",
-    author: "TrafficExpert",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "What solutions have other cities implemented to reduce rush hour congestion? I've seen some cities use congestion pricing but I'm curious about other approaches.",
-    timestamp: "3 days ago",
-    sentiment: "neutral",
-    topic: "Traffic",
-  },
-  {
-    id: 9,
-    platform: "youtube",
-    author: "PowerWatcher",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Our neighborhood has been experiencing frequent power outages. We need better infrastructure maintenance!",
-    timestamp: "2 days ago",
-    sentiment: "negative",
-    topic: "Power Infrastructure",
-  },
-  {
-    id: 10,
-    platform: "twitter",
-    author: "WaterConservationist",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "The new water treatment facility is operational! Water quality has already improved significantly. #cleanwater",
-    timestamp: "1 day ago",
-    sentiment: "positive",
-    topic: "Water Infrastructure",
-  },
 ]
 
 interface RecentPostsProps {
   platform?: string
   topic?: string
+  brand: Brand
 }
 
-export function RecentPosts({ platform, topic }: RecentPostsProps) {
+export function RecentPosts({ platform, topic, brand }: RecentPostsProps) {
   // Filter posts by platform and topic
   const filteredPosts = mockPosts.filter((post) => {
     const platformMatch = platform === "all" || !platform ? true : post.platform === platform
@@ -195,4 +131,5 @@ export function RecentPosts({ platform, topic }: RecentPostsProps) {
     </div>
   )
 }
+
 
